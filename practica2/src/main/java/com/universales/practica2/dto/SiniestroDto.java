@@ -1,63 +1,34 @@
-package com.universales.practica2.entity;
+package com.universales.practica2.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.universales.practica2.entity.Perito;
+import com.universales.practica2.entity.Seguro;
 
-@Entity
-@Table(name = "siniestros")
-public class Siniestro implements Serializable {
+public class SiniestroDto implements Serializable {
 
-    private static final long serialVersionUID = -4620202606439750149L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1402294540229535945L;
 
-    @Id
-    @Column(name = "ID_SINIESTRO")
     private Integer idSiniestro;
 
-    @Column(name = "FECHA_SINIESTRO")
     private Date fechaSiniestro;
 
-    @Column(name = "CAUSAS")
     private String causas;
 
-    @Column(name = "ACEPTADO")
     private String aceptado;
 
-    @Column(name = "INDERMIZACION")
     private String indermizacion;
 
-    @ManyToOne
-    @JoinColumn(name = "DNI_PERITO")
     private Perito perito;
 
-    @ManyToOne
-    @JoinColumn(name = "NUMERO_POLIZA")
     private Seguro seguro;
 
     public Integer getIdSiniestro() {
         return idSiniestro;
-    }
-
-    public Perito getPerito() {
-        return perito;
-    }
-
-    public void setPerito(Perito perito) {
-        this.perito = perito;
-    }
-
-    public Seguro getSeguro() {
-        return seguro;
-    }
-
-    public void setSeguro(Seguro seguro) {
-        this.seguro = seguro;
     }
 
     public void setIdSiniestro(Integer idSiniestro) {
@@ -94,6 +65,22 @@ public class Siniestro implements Serializable {
 
     public void setIndermizacion(String indermizacion) {
         this.indermizacion = indermizacion;
+    }
+
+    public Perito getPerito() {
+        return perito;
+    }
+
+    public void setPerito(Perito perito) {
+        this.perito = perito;
+    }
+
+    public Seguro getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(Seguro seguro) {
+        this.seguro = seguro;
     }
 
 }

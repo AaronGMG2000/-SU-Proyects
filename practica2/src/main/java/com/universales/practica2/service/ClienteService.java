@@ -2,6 +2,7 @@ package com.universales.practica2.service;
 
 import com.universales.practica2.repository.ClienteRepository;
 import com.universales.practica2.repository.SeguroRepository;
+import com.universales.practica2.dto.ClienteDto;
 import com.universales.practica2.entity.Cliente;
 import com.universales.practica2.entity.Seguro;
 
@@ -37,10 +38,12 @@ public class ClienteService {
     }
 
     @PostMapping(path = "/guardar")
-    public Cliente guardar(@RequestBody Cliente cliente) {
+    public Cliente guardar(@RequestBody ClienteDto newCliente) {
+        Cliente cliente = this.nuevoCliente(newCliente);
         List<Seguro> seguros = cliente.getSegurosList();
         cliente.setSegurosList(null);
         clienteRepository.save(cliente);
+
         for (Seguro seguro : seguros) {
             seguro.setDniCl(cliente.getDniCl());
         }
@@ -50,7 +53,7 @@ public class ClienteService {
     }
 
     @PutMapping(path = "/actualizar")
-    public Cliente actualizar(@RequestBody Cliente cliente) {
+    public Cliente actualizar(@RequestBody ClienteDto cliente) {
         return this.guardar(cliente);
     }
 
@@ -85,4 +88,22 @@ public class ClienteService {
             @PathVariable("ciudad2") String ciudad2) {
         return clienteRepository.findByCiudadOrCiudad(ciudad1, ciudad2);
     }
+
+    public Cliente nuevoCliente(ClienteDto newCliente) {
+        Cliente cliente = new Cliente();
+        cliente.setDniCl(newCliente.getDniCl());
+        cliente.setNombreCl(newCliente.getNombreCl());
+        cliente.setApellido1(newCliente.getApellido1());
+        cliente.setApellido2(newCliente.getApellido2());
+        cliente.setCiudad(newCliente.getCiudad());
+        cliente.setNumeroVia(newCliente.getNumeroVia());
+        cliente.setTelefono(newCliente.getTelefono());
+        cliente.setClaseVia(newCliente.getClaseVia());
+        cliente.setNombreVia(newCliente.getNombreVia());
+        cliente.setCodPostal(newCliente.getCodPostal());
+        cliente.setObservaciones(newCliente.getObservaciones());
+        cliente.setSegurosList(newCliente.getSegurosList());
+        return cliente;
+    }
+
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.repository.SiniestroRepository;
 
@@ -32,13 +33,14 @@ public class SiniestroService {
     }
 
     @PostMapping(value = "/guardar")
-    public Siniestro guardar(@RequestBody Siniestro siniestro) {
+    public Siniestro guardar(@RequestBody SiniestroDto newSiniestro) {
+        Siniestro siniestro = this.nuevoSiniestro(newSiniestro);
         return siniestroRepository.save(siniestro);
     }
 
     @PutMapping(value = "/actualizar")
-    public Siniestro actualizar(@RequestBody Siniestro siniestro) {
-        return siniestroRepository.save(siniestro);
+    public Siniestro actualizar(@RequestBody SiniestroDto newSiniestro) {
+        return this.guardar(newSiniestro);
     }
 
     @DeleteMapping(path = "/eliminar/{id}")
@@ -72,5 +74,17 @@ public class SiniestroService {
     @GetMapping(value = "/buscar/fecha/antes")
     public List<Siniestro> buscarPorFechaAntes(@RequestParam Date fechaSiniestro) {
         return siniestroRepository.findAllByFechaSiniestroBefore(fechaSiniestro);
+    }
+
+    public Siniestro nuevoSiniestro(SiniestroDto newSiniestro) {
+        Siniestro siniestro = new Siniestro();
+        siniestro.setFechaSiniestro(newSiniestro.getFechaSiniestro());
+        siniestro.setIndermizacion(newSiniestro.getIndermizacion());
+        siniestro.setPerito(newSiniestro.getPerito());
+        siniestro.setSeguro(newSiniestro.getSeguro());
+        siniestro.setIdSiniestro(newSiniestro.getIdSiniestro());
+        siniestro.setCausas(newSiniestro.getCausas());
+        siniestro.setAceptado(newSiniestro.getAceptado());
+        return siniestro;
     }
 }

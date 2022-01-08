@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.universales.practica2.dto.SeguroDto;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.SeguroRepository;
 
@@ -41,13 +42,14 @@ public class SeguroService {
     }
 
     @PostMapping("/guardar")
-    public Seguro guardar(@RequestBody Seguro seguro) {
+    public Seguro guardar(@RequestBody SeguroDto newSeguro) {
+        Seguro seguro = this.nuevoSeguro(newSeguro);
         return seguroRepository.save(seguro);
     }
 
     @PutMapping("/actualizar")
-    public Seguro actualizar(@RequestBody Seguro seguro) {
-        return seguroRepository.save(seguro);
+    public Seguro actualizar(@RequestBody SeguroDto seguro) {
+        return this.guardar(seguro);
     }
 
     @DeleteMapping(path = "/eliminar/{id}")
@@ -85,4 +87,16 @@ public class SeguroService {
         return seguroRepository.findByFechaVencimientoBetween(fechaInicio, fechaFin);
     }
 
+    public Seguro nuevoSeguro(SeguroDto newSeguro) {
+        Seguro seguro = new Seguro();
+        seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
+        seguro.setFechaInicio(newSeguro.getFechaInicio());
+        seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
+        seguro.setCompanias(newSeguro.getCompanias());
+        seguro.setObservaciones(newSeguro.getObservaciones());
+        seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
+        seguro.setDniCl(newSeguro.getDniCl());
+        seguro.setRamo(newSeguro.getRamo());
+        return seguro;
+    }
 }

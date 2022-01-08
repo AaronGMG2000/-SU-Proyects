@@ -3,6 +3,7 @@ package com.universales.practica2.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.universales.practica2.dto.CompaniaSeguroDto;
 import com.universales.practica2.entity.CompaniaSeguro;
 import com.universales.practica2.repository.CompaniaSeguroRepository;
 
@@ -30,13 +31,14 @@ public class CompaniaSeguroService {
     }
 
     @PostMapping("/guardar")
-    public CompaniaSeguro guardar(@RequestBody CompaniaSeguro companiaSeguro) {
+    public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto newCompaniaSeguro) {
+        CompaniaSeguro companiaSeguro = this.nuevaCompaniaSeguro(newCompaniaSeguro);
         return companiaSeguroRepository.save(companiaSeguro);
     }
 
     @PutMapping("/actualizar")
-    public CompaniaSeguro actualizar(@RequestBody CompaniaSeguro companiaSeguro) {
-        return companiaSeguroRepository.save(companiaSeguro);
+    public CompaniaSeguro actualizar(@RequestBody CompaniaSeguroDto newCompaniaSeguro) {
+        return this.guardar(newCompaniaSeguro);
     }
 
     @DeleteMapping(path = "/eliminar/{id}")
@@ -45,6 +47,14 @@ public class CompaniaSeguroService {
         if (companiaSeguro.isPresent()) {
             companiaSeguroRepository.delete(companiaSeguro.get());
         }
+    }
+
+    public CompaniaSeguro nuevaCompaniaSeguro(CompaniaSeguroDto newCompaniaSeguroDto) {
+        CompaniaSeguro companiaSeguro = new CompaniaSeguro();
+        companiaSeguro.setId(newCompaniaSeguroDto.getId());
+        companiaSeguro.setNombreCompania(newCompaniaSeguroDto.getNombreCompania());
+        companiaSeguro.setNumeroPoliza(newCompaniaSeguroDto.getNumeroPoliza());
+        return companiaSeguro;
     }
 
 }

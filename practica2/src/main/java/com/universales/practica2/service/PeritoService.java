@@ -3,6 +3,7 @@ package com.universales.practica2.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.universales.practica2.dto.PeritoDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.repository.PeritoRepository;
 
@@ -30,13 +31,14 @@ public class PeritoService {
     }
 
     @PostMapping(value = "/guardar")
-    public Perito guardar(@RequestBody Perito perito) {
+    public Perito guardar(@RequestBody PeritoDto newPerito) {
+        Perito perito = this.nuevoPerito(newPerito);
         return peritoRepository.save(perito);
     }
 
     @PutMapping(value = "/actualizar")
-    public Perito actualizar(@RequestBody Perito perito) {
-        return peritoRepository.save(perito);
+    public Perito actualizar(@RequestBody PeritoDto newPerito) {
+        return this.guardar(newPerito);
     }
 
     @DeleteMapping(path = "/eliminar/{id}")
@@ -56,4 +58,22 @@ public class PeritoService {
     public List<Perito> buscarPorApellidoNo(@PathVariable("apellido") String apellido) {
         return peritoRepository.findByApellidoPerito1NotContaining(apellido);
     }
+
+    public Perito nuevoPerito(PeritoDto newPerito) {
+        Perito perito = new Perito();
+        perito.setNombrePerito(newPerito.getNombrePerito());
+        perito.setApellidoPerito1(newPerito.getApellidoPerito1());
+        perito.setApellidoPerito2(newPerito.getApellidoPerito2());
+        perito.setDniPerito(newPerito.getDniPerito());
+        perito.setTelefonoContacto(newPerito.getTelefonoContacto());
+        perito.setCiudad(newPerito.getCiudad());
+        perito.setClaseVia(newPerito.getClaseVia());
+        perito.setCodPostal(newPerito.getCodPostal());
+        perito.setNombreVia(newPerito.getNombreVia());
+        perito.setNumeroVia(newPerito.getNumeroVia());
+        perito.setTelefonoOficina(newPerito.getTelefonoOficina());
+
+        return perito;
+    }
+
 }

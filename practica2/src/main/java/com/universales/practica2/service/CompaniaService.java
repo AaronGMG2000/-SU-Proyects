@@ -3,6 +3,7 @@ package com.universales.practica2.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.universales.practica2.dto.CompaniaDto;
 import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.CompaniaRepository;
@@ -32,7 +33,8 @@ public class CompaniaService {
     }
 
     @PostMapping("/guardar")
-    public Compania guardar(@RequestBody Compania compania) {
+    public Compania guardar(@RequestBody CompaniaDto newCompania) {
+        Compania compania = this.nuevoCompania(newCompania);
         List<Seguro> seguros = compania.getSeguros();
         for (Seguro seguro : seguros) {
             seguro.getCompanias().add(compania);
@@ -41,8 +43,8 @@ public class CompaniaService {
     }
 
     @PutMapping("/actualizar")
-    public Compania actualizar(@RequestBody Compania compania) {
-        return this.guardar(compania);
+    public Compania actualizar(@RequestBody CompaniaDto newCompania) {
+        return this.guardar(newCompania);
     }
 
     @DeleteMapping(path = "/eliminar/{id}")
@@ -73,4 +75,17 @@ public class CompaniaService {
         return companiaRepository.findByNumeroViaIs(numeroVia);
     }
 
+    public Compania nuevoCompania(CompaniaDto newCompania) {
+        Compania compania = new Compania();
+        compania.setNombreCompania(newCompania.getNombreCompania());
+        compania.setNumeroVia(newCompania.getNumeroVia());
+        compania.setClaseVia(newCompania.getClaseVia());
+        compania.setCodPostal(newCompania.getCodPostal());
+        compania.setNombreVia(newCompania.getNombreVia());
+        compania.setNotas(newCompania.getNotas());
+        compania.setNumeroVia(newCompania.getNumeroVia());
+        compania.setTelefonoContratacion(newCompania.getTelefonoContratacion());
+        compania.setTelefonoSiniestros(newCompania.getTelefonoSiniestros());
+        return compania;
+    }
 }
