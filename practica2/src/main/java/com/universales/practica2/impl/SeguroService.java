@@ -1,4 +1,4 @@
-package com.universales.practica2.service;
+package com.universales.practica2.impl;
 
 import java.util.Date;
 import java.util.List;

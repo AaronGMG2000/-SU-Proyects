@@ -1,4 +1,4 @@
-package com.universales.practica2.service;
+package com.universales.practica2.impl;
 
 import com.universales.practica2.repository.ClienteRepository;
 import com.universales.practica2.repository.SeguroRepository;

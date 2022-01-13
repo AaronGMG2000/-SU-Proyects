@@ -1,49 +1,47 @@
-package com.universales.practica2.service;
+package com.universales.practica2.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.repository.SiniestroRepository;
+import com.universales.practica2.service.CatalogosService;
+import com.universales.practica2.ws.SiniestroServiceInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/siniestro")
-@CrossOrigin
-public class SiniestroService {
+@Component
+public class SiniestroService implements SiniestroServiceInt {
     @Autowired
     SiniestroRepository siniestroRepository;
 
-    @GetMapping(value = "/buscar")
+    @Autowired
+    CatalogosService catalogosService;
+
+    @Override
     public List<Siniestro> buscar() {
         return siniestroRepository.findAll();
     }
 
-    @PostMapping(value = "/guardar")
+    @Override
     public Siniestro guardar(@RequestBody SiniestroDto newSiniestro) {
         Siniestro siniestro = this.nuevoSiniestro(newSiniestro);
         return siniestroRepository.save(siniestro);
     }
 
-    @PutMapping(value = "/actualizar")
+    @Override
     public Siniestro actualizar(@RequestBody SiniestroDto newSiniestro) {
         return this.guardar(newSiniestro);
     }
 
-    @DeleteMapping(path = "/eliminar/{id}")
+    @Override
     public void eliminar(@PathVariable("id") int id) {
         Optional<Siniestro> siniestro = siniestroRepository.findById(id);
         if (siniestro.isPresent()) {
@@ -51,32 +49,32 @@ public class SiniestroService {
         }
     }
 
-    @GetMapping(value = "/buscar/indermizacion/{indermizacion}")
+    @Override
     public List<Siniestro> buscarPorPerito(@PathVariable("indermizacion") String indermizacion) {
         return siniestroRepository.findByIndermizacion(indermizacion);
     }
 
-    @GetMapping(value = "/buscar/seguro")
+    @Override
     public List<Siniestro> buscarPorPoliza() {
         return siniestroRepository.findBySeguroNotNullOrderByFechaSiniestroAsc();
     }
 
-    @GetMapping(value = "/buscar/perito")
+    @Override
     public List<Siniestro> buscarPorPerito() {
         return siniestroRepository.findByPeritoNotNullOrderByFechaSiniestroDesc();
     }
 
-    @GetMapping(value = "/buscar/fecha/despues")
+    @Override
     public List<Siniestro> buscarPorFechaDespues(@RequestParam Date fechaSiniestro) {
         return siniestroRepository.findAllByFechaSiniestroAfter(fechaSiniestro);
     }
 
-    @GetMapping(value = "/buscar/fecha/antes")
+    @Override
     public List<Siniestro> buscarPorFechaAntes(@RequestParam Date fechaSiniestro) {
         return siniestroRepository.findAllByFechaSiniestroBefore(fechaSiniestro);
     }
 
-    public Siniestro nuevoSiniestro(SiniestroDto newSiniestro) {
+    private Siniestro nuevoSiniestro(SiniestroDto newSiniestro) {
         Siniestro siniestro = new Siniestro();
         siniestro.setFechaSiniestro(newSiniestro.getFechaSiniestro());
         siniestro.setIndermizacion(newSiniestro.getIndermizacion());
@@ -86,5 +84,28 @@ public class SiniestroService {
         siniestro.setCausas(newSiniestro.getCausas());
         siniestro.setAceptado(newSiniestro.getAceptado());
         return siniestro;
+    }
+
+    @Override
+    public List<Map<String, Object>> buscarPorQuery() {
+        return catalogosService.innerJoinSiniestroCliente();
+    }
+
+    @Override
+    public int postMethodName(@RequestBody SiniestroDto newSiniestro) {
+        return catalogosService.insertarSiniestroinsertarSiniestro(newSiniestro.getIdSiniestro(),
+                newSiniestro.getFechaSiniestro(), newSiniestro.getCausas(), newSiniestro.getAceptado(),
+                newSiniestro.getIndermizacion(), newSiniestro.getPerito().getDniPerito(),
+                newSiniestro.getSeguro().getNumeroPoliza());
+    }
+
+    @Override
+    public void putMethodName(@RequestBody SiniestroDto newSiniestro) {
+        catalogosService.actualizarSiniestro(newSiniestro.getIdSiniestro(), newSiniestro.getCausas());
+    }
+
+    @Override
+    public int deleteMethodName(@PathVariable("idSiniestro") int idSiniestro) {
+        return catalogosService.eliminarSiniestro(idSiniestro);
     }
 }
