@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,8 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = -626547837542948450L;
 
 	@Id
+	@GeneratedValue(generator = "sec_cliente")
+	@SequenceGenerator(name = "sec_cliente", sequenceName = "sec_cliente", allocationSize = 1)
 	@Column(name = "DNI_CL")
 	private Integer dniCl;
 
