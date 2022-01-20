@@ -26,4 +26,9 @@ public class ProcedureComponent implements ProcedureServiceInt {
         procedureService.eliminarSeguro(id);
     }
 
+    @Override
+    public int guardarSeguroPackage(SeguroDto newSeguro) {
+        return procedureService.guardarSeguroPackage(newSeguro);
+    }
+
 }

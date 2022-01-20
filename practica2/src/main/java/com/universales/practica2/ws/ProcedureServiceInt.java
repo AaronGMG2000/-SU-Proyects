@@ -21,4 +21,7 @@ public interface ProcedureServiceInt {
 
     @GetMapping(value = "eliminar/seguro/{id}")
     public void eliminarSeguro(@PathVariable int id);
+
+    @PostMapping(value = "guardar/seguro/package")
+    public int guardarSeguroPackage(@RequestBody SeguroDto newSeguro);
 }
