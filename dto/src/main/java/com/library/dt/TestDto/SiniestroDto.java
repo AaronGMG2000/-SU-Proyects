@@ -1,10 +1,9 @@
-package com.universales.practica2.dto;
+package com.library.dt.TestDto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import com.universales.practica2.entity.Perito;
-import com.universales.practica2.entity.Seguro;
+
 
 public class SiniestroDto implements Serializable {
 
@@ -23,9 +22,9 @@ public class SiniestroDto implements Serializable {
 
     private String indermizacion;
 
-    private Perito perito;
+    private PeritoDto perito;
 
-    private Seguro seguro;
+    private SeguroDto seguro;
 
     public Integer getIdSiniestro() {
         return idSiniestro;
@@ -67,19 +66,19 @@ public class SiniestroDto implements Serializable {
         this.indermizacion = indermizacion;
     }
 
-    public Perito getPerito() {
+    public PeritoDto getPerito() {
         return perito;
     }
 
-    public void setPerito(Perito perito) {
+    public void setPerito(PeritoDto perito) {
         this.perito = perito;
     }
 
-    public Seguro getSeguro() {
+    public SeguroDto getSeguro() {
         return seguro;
     }
 
-    public void setSeguro(Seguro seguro) {
+    public void setSeguro(SeguroDto seguro) {
         this.seguro = seguro;
     }
 

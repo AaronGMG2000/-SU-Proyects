@@ -3,7 +3,7 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.universales.practica2.dto.CompaniaSeguroDto;
+import com.library.dt.TestDto.CompaniaSeguroDto;
 import com.universales.practica2.entity.CompaniaSeguro;
 import com.universales.practica2.repository.CompaniaSeguroRepository;
 

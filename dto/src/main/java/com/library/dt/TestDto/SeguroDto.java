@@ -1,11 +1,9 @@
-package com.universales.practica2.dto;
+package com.library.dt.TestDto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.universales.practica2.entity.Compania;
 
 public class SeguroDto implements Serializable {
 
@@ -28,7 +26,7 @@ public class SeguroDto implements Serializable {
 
     private Integer dniCl;
 
-    private List<Compania> companias = new ArrayList<>();
+    private List<CompaniaDto> companias;
 
     public Integer getNumeroPoliza() {
         return numeroPoliza;
@@ -86,11 +84,11 @@ public class SeguroDto implements Serializable {
         this.dniCl = dniCl;
     }
 
-    public List<Compania> getCompanias() {
+    public List<CompaniaDto> getCompanias() {
         return companias;
     }
 
-    public void setCompanias(List<Compania> companias) {
+    public void setCompanias(List<CompaniaDto> companias) {
         this.companias = companias;
     }
 

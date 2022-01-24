@@ -3,9 +3,10 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.universales.practica2.dto.PeritoDto;
+import com.library.dt.TestDto.PeritoDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.repository.PeritoRepository;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class PeritoService {
     @Autowired
     PeritoRepository peritoRepository;
+    
 
     @GetMapping(value = "/buscar")
     public List<Perito> buscar() {

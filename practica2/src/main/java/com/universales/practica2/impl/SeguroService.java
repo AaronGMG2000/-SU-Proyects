@@ -1,10 +1,13 @@
 package com.universales.practica2.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import com.universales.practica2.dto.SeguroDto;
+import com.library.dt.TestDto.CompaniaDto;
+import com.library.dt.TestDto.SeguroDto;
+import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.SeguroRepository;
 
@@ -92,11 +95,29 @@ public class SeguroService {
         seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
         seguro.setFechaInicio(newSeguro.getFechaInicio());
         seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
-        seguro.setCompanias(newSeguro.getCompanias());
+        List<Compania> companias = new ArrayList<>();
+        for (CompaniaDto compania : newSeguro.getCompanias()) {
+			companias.add(this.nuevoCompania(compania));
+		}
+        seguro.setCompanias(companias);
         seguro.setObservaciones(newSeguro.getObservaciones());
         seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
         seguro.setDniCl(newSeguro.getDniCl());
         seguro.setRamo(newSeguro.getRamo());
         return seguro;
+    }
+    
+    public Compania nuevoCompania(CompaniaDto newCompania) {
+        Compania compania = new Compania();
+        compania.setNombreCompania(newCompania.getNombreCompania());
+        compania.setNumeroVia(newCompania.getNumeroVia());
+        compania.setClaseVia(newCompania.getClaseVia());
+        compania.setCodPostal(newCompania.getCodPostal());
+        compania.setNombreVia(newCompania.getNombreVia());
+        compania.setNotas(newCompania.getNotas());
+        compania.setNumeroVia(newCompania.getNumeroVia());
+        compania.setTelefonoContratacion(newCompania.getTelefonoContratacion());
+        compania.setTelefonoSiniestros(newCompania.getTelefonoSiniestros());
+        return compania;
     }
 }

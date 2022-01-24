@@ -1,7 +1,7 @@
 package com.universales.practica2.impl;
 
-import com.universales.practica2.dto.ProcedimientoDto;
-import com.universales.practica2.dto.SeguroDto;
+import com.library.dt.TestDto.ProcedimientoDto;
+import com.library.dt.TestDto.SeguroDto;
 import com.universales.practica2.service.ProcedureService;
 import com.universales.practica2.ws.ProcedureServiceInt;
 

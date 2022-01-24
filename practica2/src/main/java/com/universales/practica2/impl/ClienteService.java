@@ -2,7 +2,8 @@ package com.universales.practica2.impl;
 
 import com.universales.practica2.repository.ClienteRepository;
 import com.universales.practica2.repository.SeguroRepository;
-import com.universales.practica2.dto.ClienteDto;
+import com.library.dt.TestDto.ClienteDto;
+import com.library.dt.TestDto.SeguroDto;
 import com.universales.practica2.entity.Cliente;
 import com.universales.practica2.entity.Seguro;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -102,8 +104,25 @@ public class ClienteService {
         cliente.setNombreVia(newCliente.getNombreVia());
         cliente.setCodPostal(newCliente.getCodPostal());
         cliente.setObservaciones(newCliente.getObservaciones());
-        cliente.setSegurosList(newCliente.getSegurosList());
+        List<Seguro> seguros = new ArrayList<>();
+        for (SeguroDto seguro : newCliente.getSegurosList()) {
+			seguros.add(this.nuevoSeguro(seguro));
+		}
+        cliente.setSegurosList(seguros);
         return cliente;
     }
-
+    
+    public Seguro nuevoSeguro(SeguroDto newSeguro) {
+        Seguro seguro = new Seguro();
+        seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
+        seguro.setFechaInicio(newSeguro.getFechaInicio());
+        seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
+        seguro.setObservaciones(newSeguro.getObservaciones());
+        seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
+        seguro.setDniCl(newSeguro.getDniCl());
+        seguro.setRamo(newSeguro.getRamo());
+        return seguro;
+    }
+    
+    
 }

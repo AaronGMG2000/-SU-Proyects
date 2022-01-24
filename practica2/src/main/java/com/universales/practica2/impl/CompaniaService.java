@@ -3,10 +3,11 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.universales.practica2.dto.CompaniaDto;
+import com.library.dt.TestDto.CompaniaDto;
 import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.CompaniaRepository;
+import com.universales.practica2.repository.SeguroRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +27,10 @@ public class CompaniaService {
 
     @Autowired
     CompaniaRepository companiaRepository;
-
+    
+    @Autowired
+    SeguroRepository seguroRepository;
+    
     @GetMapping("/buscar")
     public List<Compania> buscar() {
         return companiaRepository.findAll();
@@ -36,10 +40,14 @@ public class CompaniaService {
     public Compania guardar(@RequestBody CompaniaDto newCompania) {
         Compania compania = this.nuevoCompania(newCompania);
         List<Seguro> seguros = compania.getSeguros();
+        compania.setSeguros(null);
+        companiaRepository.save(compania);
         for (Seguro seguro : seguros) {
-            seguro.getCompanias().add(compania);
+        	seguro.getCompanias().add(compania);   
         }
-        return companiaRepository.save(compania);
+        seguroRepository.saveAll(seguros);
+        compania.setSeguros(seguros);
+        return compania;
     }
 
     @PutMapping("/actualizar")
@@ -48,7 +56,7 @@ public class CompaniaService {
     }
 
     @DeleteMapping(path = "/eliminar/{id}")
-    public void eliminar(@PathVariable("id") int id) {
+    public void eliminar(@PathVariable("id") String id) {
         Optional<Compania> compania = companiaRepository.findById(id);
         if (compania.isPresent()) {
             companiaRepository.delete(compania.get());

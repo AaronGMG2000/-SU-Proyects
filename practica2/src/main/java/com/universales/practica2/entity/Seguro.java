@@ -1,7 +1,6 @@
 package com.universales.practica2.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class Seguro implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "companias_seguros", joinColumns = @JoinColumn(name = "NUMERO_POLIZA"), inverseJoinColumns = @JoinColumn(name = "NOMBRE_COMPANIA"))
     @JsonIgnore
-    private List<Compania> companias = new ArrayList<>();
+    private List<Compania> companias;
 
     public Integer getNumeroPoliza() {
         return numeroPoliza;
