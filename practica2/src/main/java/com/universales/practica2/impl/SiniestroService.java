@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.library.dt.TestDto.PeritoDto;
-import com.library.dt.TestDto.SeguroDto;
-import com.library.dt.TestDto.SiniestroDto;
+import com.library.dto.test.PeritoDto;
+import com.library.dto.test.SeguroDto;
+import com.library.dto.test.SiniestroDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.entity.Siniestro;
@@ -17,9 +17,6 @@ import com.universales.practica2.ws.SiniestroServiceInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
 public class SiniestroService implements SiniestroServiceInt {
@@ -35,18 +32,18 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     @Override
-    public Siniestro guardar(@RequestBody SiniestroDto newSiniestro) {
+    public Siniestro guardar(SiniestroDto newSiniestro) {
         Siniestro siniestro = this.nuevoSiniestro(newSiniestro);
         return siniestroRepository.save(siniestro);
     }
 
     @Override
-    public Siniestro actualizar(@RequestBody SiniestroDto newSiniestro) {
+    public Siniestro actualizar(SiniestroDto newSiniestro) {
         return this.guardar(newSiniestro);
     }
 
     @Override
-    public void eliminar(@PathVariable("id") int id) {
+    public void eliminar(int id) {
         Optional<Siniestro> siniestro = siniestroRepository.findById(id);
         if (siniestro.isPresent()) {
             siniestroRepository.delete(siniestro.get());
@@ -54,7 +51,7 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     @Override
-    public List<Siniestro> buscarPorPerito(@PathVariable("indermizacion") String indermizacion) {
+    public List<Siniestro> buscarPorPerito(String indermizacion) {
         return siniestroRepository.findByIndermizacion(indermizacion);
     }
 
@@ -69,12 +66,12 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     @Override
-    public List<Siniestro> buscarPorFechaDespues(@RequestParam Date fechaSiniestro) {
+    public List<Siniestro> buscarPorFechaDespues(Date fechaSiniestro) {
         return siniestroRepository.findAllByFechaSiniestroAfter(fechaSiniestro);
     }
 
     @Override
-    public List<Siniestro> buscarPorFechaAntes(@RequestParam Date fechaSiniestro) {
+    public List<Siniestro> buscarPorFechaAntes(Date fechaSiniestro) {
         return siniestroRepository.findAllByFechaSiniestroBefore(fechaSiniestro);
     }
 
@@ -124,7 +121,7 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     @Override
-    public int postMethodName(@RequestBody SiniestroDto newSiniestro) {
+    public int postMethodName(SiniestroDto newSiniestro) {
         return catalogosService.insertarSiniestroinsertarSiniestro(newSiniestro.getIdSiniestro(),
                 newSiniestro.getFechaSiniestro(), newSiniestro.getCausas(), newSiniestro.getAceptado(),
                 newSiniestro.getIndermizacion(), newSiniestro.getPerito().getDniPerito(),
@@ -132,12 +129,12 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     @Override
-    public void putMethodName(@RequestBody SiniestroDto newSiniestro) {
+    public void putMethodName(SiniestroDto newSiniestro) {
         catalogosService.actualizarSiniestro(newSiniestro.getIdSiniestro(), newSiniestro.getCausas());
     }
 
     @Override
-    public int deleteMethodName(@PathVariable("idSiniestro") int idSiniestro) {
+    public int deleteMethodName(int idSiniestro) {
         return catalogosService.eliminarSiniestro(idSiniestro);
     }
 }

@@ -3,7 +3,7 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dt.TestDto.CompaniaSeguroDto;
+import com.library.dto.test.CompaniaSeguroDto;
 import com.universales.practica2.entity.CompaniaSeguro;
 import com.universales.practica2.repository.CompaniaSeguroRepository;
 
@@ -51,7 +51,6 @@ public class CompaniaSeguroService {
 
     public CompaniaSeguro nuevaCompaniaSeguro(CompaniaSeguroDto newCompaniaSeguroDto) {
         CompaniaSeguro companiaSeguro = new CompaniaSeguro();
-        companiaSeguro.setId(newCompaniaSeguroDto.getId());
         companiaSeguro.setNombreCompania(newCompaniaSeguroDto.getNombreCompania());
         companiaSeguro.setNumeroPoliza(newCompaniaSeguroDto.getNumeroPoliza());
         return companiaSeguro;

@@ -2,8 +2,8 @@ package com.universales.practica2.impl;
 
 import com.universales.practica2.repository.ClienteRepository;
 import com.universales.practica2.repository.SeguroRepository;
-import com.library.dt.TestDto.ClienteDto;
-import com.library.dt.TestDto.SeguroDto;
+import com.library.dto.test.ClienteDto;
+import com.library.dto.test.SeguroDto;
 import com.universales.practica2.entity.Cliente;
 import com.universales.practica2.entity.Seguro;
 
@@ -44,7 +44,7 @@ public class ClienteService {
         Cliente cliente = this.nuevoCliente(newCliente);
         List<Seguro> seguros = cliente.getSegurosList();
         cliente.setSegurosList(null);
-        clienteRepository.save(cliente);
+        cliente = clienteRepository.save(cliente);
 
         for (Seguro seguro : seguros) {
             seguro.setDniCl(cliente.getDniCl());
@@ -63,7 +63,6 @@ public class ClienteService {
     public void eliminar(@PathVariable("idusuario") int idusuario) {
         Optional<Cliente> cliente = clienteRepository.findById(idusuario);
         if (cliente.isPresent()) {
-            seguroRepository.deleteAll(cliente.get().getSegurosList());
             clienteRepository.delete(cliente.get());
         }
     }

@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dt.TestDto.CompaniaDto;
-import com.library.dt.TestDto.SeguroDto;
+import com.library.dto.test.CompaniaDto;
+import com.library.dto.test.SeguroDto;
 import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.SeguroRepository;

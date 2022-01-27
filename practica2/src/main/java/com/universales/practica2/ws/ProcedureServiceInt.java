@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.library.dt.TestDto.ProcedimientoDto;
-import com.library.dt.TestDto.SeguroDto;
+import com.library.dto.test.ProcedimientoDto;
+import com.library.dto.test.SeguroDto;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

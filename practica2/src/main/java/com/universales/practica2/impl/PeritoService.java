@@ -3,7 +3,7 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dt.TestDto.PeritoDto;
+import com.library.dto.test.PeritoDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.repository.PeritoRepository;
 

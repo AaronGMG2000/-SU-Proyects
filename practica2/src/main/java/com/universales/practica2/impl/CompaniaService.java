@@ -1,9 +1,11 @@
 package com.universales.practica2.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dt.TestDto.CompaniaDto;
+import com.library.dto.test.CompaniaDto;
+import com.library.dto.test.SeguroDto;
 import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.CompaniaRepository;
@@ -94,6 +96,23 @@ public class CompaniaService {
         compania.setNumeroVia(newCompania.getNumeroVia());
         compania.setTelefonoContratacion(newCompania.getTelefonoContratacion());
         compania.setTelefonoSiniestros(newCompania.getTelefonoSiniestros());
+        List<Seguro> seguros = new ArrayList<>();
+        for (SeguroDto seguro : newCompania.getSeguros()) {
+			seguros.add(this.nuevoSeguro(seguro));
+		}
+        compania.setSeguros(seguros);
         return compania;
+    }
+    
+    public Seguro nuevoSeguro(SeguroDto newSeguro) {
+        Seguro seguro = new Seguro();
+        seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
+        seguro.setFechaInicio(newSeguro.getFechaInicio());
+        seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
+        seguro.setObservaciones(newSeguro.getObservaciones());
+        seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
+        seguro.setDniCl(newSeguro.getDniCl());
+        seguro.setRamo(newSeguro.getRamo());
+        return seguro;
     }
 }

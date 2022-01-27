@@ -1,4 +1,4 @@
-package com.library.dt.TestDto;
+package com.library.dto.test;
 
 import java.io.Serializable;
 import java.util.Date;
