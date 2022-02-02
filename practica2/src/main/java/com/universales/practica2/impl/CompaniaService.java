@@ -1,16 +1,16 @@
 package com.universales.practica2.impl;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import com.library.dto.test.CompaniaDto;
-import com.library.dto.test.SeguroDto;
 import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.CompaniaRepository;
 import com.universales.practica2.repository.SeguroRepository;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,12 +43,18 @@ public class CompaniaService {
         Compania compania = this.nuevoCompania(newCompania);
         List<Seguro> seguros = compania.getSeguros();
         compania.setSeguros(null);
-        companiaRepository.save(compania);
-        for (Seguro seguro : seguros) {
-        	seguro.getCompanias().add(compania);   
+        if(seguros != null) {
+	        companiaRepository.save(compania);
+	        for (Seguro seguro : seguros) {
+	        	if (seguro.getCompanias() == null) {
+	        		seguro.setCompanias(new LinkedList<>());
+	        	}
+	        	seguro.getCompanias().add(compania);   
+	        }
+	        
+            seguroRepository.saveAll(seguros);
+            compania.setSeguros(seguros);
         }
-        seguroRepository.saveAll(seguros);
-        compania.setSeguros(seguros);
         return compania;
     }
 
@@ -86,33 +92,10 @@ public class CompaniaService {
     }
 
     public Compania nuevoCompania(CompaniaDto newCompania) {
-        Compania compania = new Compania();
-        compania.setNombreCompania(newCompania.getNombreCompania());
-        compania.setNumeroVia(newCompania.getNumeroVia());
-        compania.setClaseVia(newCompania.getClaseVia());
-        compania.setCodPostal(newCompania.getCodPostal());
-        compania.setNombreVia(newCompania.getNombreVia());
-        compania.setNotas(newCompania.getNotas());
-        compania.setNumeroVia(newCompania.getNumeroVia());
-        compania.setTelefonoContratacion(newCompania.getTelefonoContratacion());
-        compania.setTelefonoSiniestros(newCompania.getTelefonoSiniestros());
-        List<Seguro> seguros = new ArrayList<>();
-        for (SeguroDto seguro : newCompania.getSeguros()) {
-			seguros.add(this.nuevoSeguro(seguro));
-		}
-        compania.setSeguros(seguros);
+    	ModelMapper mp = new ModelMapper();
+        Compania compania = mp.map(newCompania, Compania.class);
         return compania;
     }
     
-    public Seguro nuevoSeguro(SeguroDto newSeguro) {
-        Seguro seguro = new Seguro();
-        seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
-        seguro.setFechaInicio(newSeguro.getFechaInicio());
-        seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
-        seguro.setObservaciones(newSeguro.getObservaciones());
-        seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
-        seguro.setDniCl(newSeguro.getDniCl());
-        seguro.setRamo(newSeguro.getRamo());
-        return seguro;
-    }
+
 }

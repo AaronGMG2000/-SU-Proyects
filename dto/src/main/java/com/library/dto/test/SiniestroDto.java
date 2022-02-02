@@ -3,8 +3,10 @@ package com.library.dto.test;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Data;
 
 
+@Data
 public class SiniestroDto implements Serializable {
 
     /**
@@ -26,60 +28,5 @@ public class SiniestroDto implements Serializable {
 
     private SeguroDto seguro;
 
-    public Integer getIdSiniestro() {
-        return idSiniestro;
-    }
-
-    public void setIdSiniestro(Integer idSiniestro) {
-        this.idSiniestro = idSiniestro;
-    }
-
-    public Date getFechaSiniestro() {
-        return fechaSiniestro;
-    }
-
-    public void setFechaSiniestro(Date fechaSiniestro) {
-        this.fechaSiniestro = fechaSiniestro;
-    }
-
-    public String getCausas() {
-        return causas;
-    }
-
-    public void setCausas(String causas) {
-        this.causas = causas;
-    }
-
-    public String getAceptado() {
-        return aceptado;
-    }
-
-    public void setAceptado(String aceptado) {
-        this.aceptado = aceptado;
-    }
-
-    public String getIndermizacion() {
-        return indermizacion;
-    }
-
-    public void setIndermizacion(String indermizacion) {
-        this.indermizacion = indermizacion;
-    }
-
-    public PeritoDto getPerito() {
-        return perito;
-    }
-
-    public void setPerito(PeritoDto perito) {
-        this.perito = perito;
-    }
-
-    public SeguroDto getSeguro() {
-        return seguro;
-    }
-
-    public void setSeguro(SeguroDto seguro) {
-        this.seguro = seguro;
-    }
-
+    
 }

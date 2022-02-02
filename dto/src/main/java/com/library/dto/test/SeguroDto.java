@@ -2,9 +2,12 @@ package com.library.dto.test;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
+import lombok.Data;
 
+@Data
 public class SeguroDto implements Serializable {
 
     /**
@@ -26,70 +29,7 @@ public class SeguroDto implements Serializable {
 
     private Integer dniCl;
 
-    private List<CompaniaDto> companias;
+    private List<CompaniaDto> companias = new LinkedList<CompaniaDto>();
 
-    public Integer getNumeroPoliza() {
-        return numeroPoliza;
-    }
-
-    public void setNumeroPoliza(Integer numeroPoliza) {
-        this.numeroPoliza = numeroPoliza;
-    }
-
-    public String getRamo() {
-        return ramo;
-    }
-
-    public void setRamo(String ramo) {
-        this.ramo = ramo;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
-    }
-
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
-    }
-
-    public String getCondicionesParticulares() {
-        return condicionesParticulares;
-    }
-
-    public void setCondicionesParticulares(String condicionesParticulares) {
-        this.condicionesParticulares = condicionesParticulares;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public Integer getDniCl() {
-        return dniCl;
-    }
-
-    public void setDniCl(Integer dniCl) {
-        this.dniCl = dniCl;
-    }
-
-    public List<CompaniaDto> getCompanias() {
-        return companias;
-    }
-
-    public void setCompanias(List<CompaniaDto> companias) {
-        this.companias = companias;
-    }
-
+    
 }

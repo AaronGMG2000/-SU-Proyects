@@ -2,6 +2,7 @@ package com.universales.practica2.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "seguros")
 public class Seguro implements Serializable {
@@ -46,70 +50,7 @@ public class Seguro implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "companias_seguros", joinColumns = @JoinColumn(name = "NUMERO_POLIZA"), inverseJoinColumns = @JoinColumn(name = "NOMBRE_COMPANIA"))
     @JsonIgnore
-    private List<Compania> companias;
+    private List<Compania> companias = new LinkedList<Compania>();
 
-    public Integer getNumeroPoliza() {
-        return numeroPoliza;
-    }
-
-    public void setNumeroPoliza(Integer numeroPoliza) {
-        this.numeroPoliza = numeroPoliza;
-    }
-
-    public String getRamo() {
-        return ramo;
-    }
-
-    public void setRamo(String ramo) {
-        this.ramo = ramo;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
-    }
-
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
-    }
-
-    public String getCondicionesParticulares() {
-        return condicionesParticulares;
-    }
-
-    public void setCondicionesParticulares(String condicionesParticulares) {
-        this.condicionesParticulares = condicionesParticulares;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public Integer getDniCl() {
-        return dniCl;
-    }
-
-    public void setDniCl(Integer dniCl) {
-        this.dniCl = dniCl;
-    }
-
-    public List<Compania> getCompanias() {
-        return companias;
-    }
-
-    public void setCompanias(List<Compania> companias) {
-        this.companias = companias;
-    }
-
+    
 }

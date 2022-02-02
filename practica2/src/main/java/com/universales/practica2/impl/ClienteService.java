@@ -3,10 +3,10 @@ package com.universales.practica2.impl;
 import com.universales.practica2.repository.ClienteRepository;
 import com.universales.practica2.repository.SeguroRepository;
 import com.library.dto.test.ClienteDto;
-import com.library.dto.test.SeguroDto;
 import com.universales.practica2.entity.Cliente;
 import com.universales.practica2.entity.Seguro;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +44,6 @@ public class ClienteService {
         List<Seguro> seguros = cliente.getSegurosList();
         cliente.setSegurosList(null);
         cliente = clienteRepository.save(cliente);
-
         for (Seguro seguro : seguros) {
             seguro.setDniCl(cliente.getDniCl());
         }
@@ -91,37 +89,12 @@ public class ClienteService {
     }
 
     public Cliente nuevoCliente(ClienteDto newCliente) {
-        Cliente cliente = new Cliente();
-        cliente.setDniCl(newCliente.getDniCl());
-        cliente.setNombreCl(newCliente.getNombreCl());
-        cliente.setApellido1(newCliente.getApellido1());
-        cliente.setApellido2(newCliente.getApellido2());
-        cliente.setCiudad(newCliente.getCiudad());
-        cliente.setNumeroVia(newCliente.getNumeroVia());
-        cliente.setTelefono(newCliente.getTelefono());
-        cliente.setClaseVia(newCliente.getClaseVia());
-        cliente.setNombreVia(newCliente.getNombreVia());
-        cliente.setCodPostal(newCliente.getCodPostal());
-        cliente.setObservaciones(newCliente.getObservaciones());
-        List<Seguro> seguros = new ArrayList<>();
-        for (SeguroDto seguro : newCliente.getSegurosList()) {
-			seguros.add(this.nuevoSeguro(seguro));
-		}
-        cliente.setSegurosList(seguros);
+    	ModelMapper mp = new ModelMapper();
+        Cliente cliente = mp.map(newCliente, Cliente.class);
         return cliente;
     }
     
-    public Seguro nuevoSeguro(SeguroDto newSeguro) {
-        Seguro seguro = new Seguro();
-        seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
-        seguro.setFechaInicio(newSeguro.getFechaInicio());
-        seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
-        seguro.setObservaciones(newSeguro.getObservaciones());
-        seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
-        seguro.setDniCl(newSeguro.getDniCl());
-        seguro.setRamo(newSeguro.getRamo());
-        return seguro;
-    }
+
     
     
 }

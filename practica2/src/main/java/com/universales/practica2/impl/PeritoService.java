@@ -7,7 +7,7 @@ import com.library.dto.test.PeritoDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.repository.PeritoRepository;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,19 +62,8 @@ public class PeritoService {
     }
 
     public Perito nuevoPerito(PeritoDto newPerito) {
-        Perito perito = new Perito();
-        perito.setNombrePerito(newPerito.getNombrePerito());
-        perito.setApellidoPerito1(newPerito.getApellidoPerito1());
-        perito.setApellidoPerito2(newPerito.getApellidoPerito2());
-        perito.setDniPerito(newPerito.getDniPerito());
-        perito.setTelefonoContacto(newPerito.getTelefonoContacto());
-        perito.setCiudad(newPerito.getCiudad());
-        perito.setClaseVia(newPerito.getClaseVia());
-        perito.setCodPostal(newPerito.getCodPostal());
-        perito.setNombreVia(newPerito.getNombreVia());
-        perito.setNumeroVia(newPerito.getNumeroVia());
-        perito.setTelefonoOficina(newPerito.getTelefonoOficina());
-
+        ModelMapper mp = new ModelMapper();
+    	Perito perito = mp.map(newPerito, Perito.class);
         return perito;
     }
 

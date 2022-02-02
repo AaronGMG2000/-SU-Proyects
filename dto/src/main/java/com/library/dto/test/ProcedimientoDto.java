@@ -2,6 +2,9 @@ package com.library.dto.test;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
+@Data
 public class ProcedimientoDto implements Serializable {
 
     private static final long serialVersionUID = -2745688463382500563L;
@@ -10,28 +13,5 @@ public class ProcedimientoDto implements Serializable {
     private int numeroPoliza;
     private int dniCl;
 
-    public String getNombreCl() {
-        return nombreCl;
-    }
-
-    public void setNombreCl(String nombreCl) {
-        this.nombreCl = nombreCl;
-    }
-
-    public int getNumeroPoliza() {
-        return numeroPoliza;
-    }
-
-    public void setNumeroPoliza(int numeroPoliza) {
-        this.numeroPoliza = numeroPoliza;
-    }
-
-    public int getDniCl() {
-        return dniCl;
-    }
-
-    public void setDniCl(int dniCl) {
-        this.dniCl = dniCl;
-    }
-
+  
 }

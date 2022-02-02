@@ -5,16 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.library.dto.test.PeritoDto;
-import com.library.dto.test.SeguroDto;
+
 import com.library.dto.test.SiniestroDto;
-import com.universales.practica2.entity.Perito;
-import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.repository.SiniestroRepository;
 import com.universales.practica2.service.CatalogosService;
 import com.universales.practica2.ws.SiniestroServiceInt;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -76,44 +74,11 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     private Siniestro nuevoSiniestro(SiniestroDto newSiniestro) {
-        Siniestro siniestro = new Siniestro();
-        siniestro.setFechaSiniestro(newSiniestro.getFechaSiniestro());
-        siniestro.setIndermizacion(newSiniestro.getIndermizacion());
-        siniestro.setPerito(this.nuevoPerito(newSiniestro.getPerito()));
-        siniestro.setSeguro(this.nuevoSeguro(newSiniestro.getSeguro()));
-        siniestro.setIdSiniestro(newSiniestro.getIdSiniestro());
-        siniestro.setCausas(newSiniestro.getCausas());
-        siniestro.setAceptado(newSiniestro.getAceptado());
+        ModelMapper mp = new ModelMapper();
+    	Siniestro siniestro = mp.map(newSiniestro, Siniestro.class);
         return siniestro;
     }
     
-    public Perito nuevoPerito(PeritoDto newPerito) {
-        Perito perito = new Perito();
-        perito.setNombrePerito(newPerito.getNombrePerito());
-        perito.setApellidoPerito1(newPerito.getApellidoPerito1());
-        perito.setApellidoPerito2(newPerito.getApellidoPerito2());
-        perito.setDniPerito(newPerito.getDniPerito());
-        perito.setTelefonoContacto(newPerito.getTelefonoContacto());
-        perito.setCiudad(newPerito.getCiudad());
-        perito.setClaseVia(newPerito.getClaseVia());
-        perito.setCodPostal(newPerito.getCodPostal());
-        perito.setNombreVia(newPerito.getNombreVia());
-        perito.setNumeroVia(newPerito.getNumeroVia());
-        perito.setTelefonoOficina(newPerito.getTelefonoOficina());
-        return perito;
-    }
-    
-    public Seguro nuevoSeguro(SeguroDto newSeguro) {
-        Seguro seguro = new Seguro();
-        seguro.setNumeroPoliza(newSeguro.getNumeroPoliza());
-        seguro.setFechaInicio(newSeguro.getFechaInicio());
-        seguro.setFechaVencimiento(newSeguro.getFechaVencimiento());
-        seguro.setObservaciones(newSeguro.getObservaciones());
-        seguro.setCondicionesParticulares(newSeguro.getCondicionesParticulares());
-        seguro.setDniCl(newSeguro.getDniCl());
-        seguro.setRamo(newSeguro.getRamo());
-        return seguro;
-    }
 
     @Override
     public List<Map<String, Object>> buscarPorQuery() {

@@ -7,6 +7,7 @@ import com.library.dto.test.CompaniaSeguroDto;
 import com.universales.practica2.entity.CompaniaSeguro;
 import com.universales.practica2.repository.CompaniaSeguroRepository;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,9 +51,8 @@ public class CompaniaSeguroService {
     }
 
     public CompaniaSeguro nuevaCompaniaSeguro(CompaniaSeguroDto newCompaniaSeguroDto) {
-        CompaniaSeguro companiaSeguro = new CompaniaSeguro();
-        companiaSeguro.setNombreCompania(newCompaniaSeguroDto.getNombreCompania());
-        companiaSeguro.setNumeroPoliza(newCompaniaSeguroDto.getNumeroPoliza());
+    	ModelMapper mp = new ModelMapper();
+        CompaniaSeguro companiaSeguro = mp.map(newCompaniaSeguroDto, CompaniaSeguro.class);
         return companiaSeguro;
     }
 

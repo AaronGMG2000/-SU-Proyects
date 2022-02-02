@@ -1,10 +1,13 @@
 package com.library.dto.test;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
+import lombok.Data;
 
 
+@Data
 public class CompaniaDto implements Serializable {
 
     /**
@@ -28,78 +31,8 @@ public class CompaniaDto implements Serializable {
 
     private String notas;
 
-    private List<SeguroDto> seguros;
+    private List<SeguroDto> seguros = new LinkedList<SeguroDto>();
 
-    public String getNombreCompania() {
-        return nombreCompania;
-    }
-
-    public void setNombreCompania(String nombreCompania) {
-        this.nombreCompania = nombreCompania;
-    }
-
-    public String getClaseVia() {
-        return claseVia;
-    }
-
-    public void setClaseVia(String claseVia) {
-        this.claseVia = claseVia;
-    }
-
-    public String getNombreVia() {
-        return nombreVia;
-    }
-
-    public void setNombreVia(String nombreVia) {
-        this.nombreVia = nombreVia;
-    }
-
-    public Integer getNumeroVia() {
-        return numeroVia;
-    }
-
-    public void setNumeroVia(Integer numeroVia) {
-        this.numeroVia = numeroVia;
-    }
-
-    public String getCodPostal() {
-        return codPostal;
-    }
-
-    public void setCodPostal(String codPostal) {
-        this.codPostal = codPostal;
-    }
-
-    public String getTelefonoContratacion() {
-        return telefonoContratacion;
-    }
-
-    public void setTelefonoContratacion(String telefonoContratacion) {
-        this.telefonoContratacion = telefonoContratacion;
-    }
-
-    public String getTelefonoSiniestros() {
-        return telefonoSiniestros;
-    }
-
-    public void setTelefonoSiniestros(String telefonoSiniestros) {
-        this.telefonoSiniestros = telefonoSiniestros;
-    }
-
-    public String getNotas() {
-        return notas;
-    }
-
-    public void setNotas(String notas) {
-        this.notas = notas;
-    }
-
-    public List<SeguroDto> getSeguros() {
-        return seguros;
-    }
-
-    public void setSeguros(List<SeguroDto> seguros) {
-        this.seguros = seguros;
-    }
+ 
 
 }
