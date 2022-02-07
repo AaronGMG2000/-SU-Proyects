@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.library.dto.test.CompaniaDto;
-import com.library.dto.test.PeritoDto;
-import com.library.dto.test.SeguroDto;
-import com.library.dto.test.SiniestroDto;
+import com.universales.practica2.dto.CompaniaDto;
+import com.universales.practica2.dto.PeritoDto;
+import com.universales.practica2.dto.SeguroDto;
+import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.impl.SiniestroService;
 

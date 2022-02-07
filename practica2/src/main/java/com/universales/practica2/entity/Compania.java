@@ -1,7 +1,6 @@
 package com.universales.practica2.entity;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -46,7 +45,7 @@ public class Compania implements Serializable {
     private String notas;
 
     @ManyToMany(mappedBy = "companias", cascade = CascadeType.ALL)
-    private List<Seguro> seguros = new LinkedList<Seguro>();
+    private List<Seguro> seguros;
 
 
 }

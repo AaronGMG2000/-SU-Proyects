@@ -1,4 +1,4 @@
-package com.library.dto.test;
+package com.universales.practica2.dto;
 
 import java.io.Serializable;
 

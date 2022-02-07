@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
-import com.library.dto.test.SiniestroDto;
+import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.repository.SiniestroRepository;
 import com.universales.practica2.service.CatalogosService;
@@ -75,8 +74,7 @@ public class SiniestroService implements SiniestroServiceInt {
 
     private Siniestro nuevoSiniestro(SiniestroDto newSiniestro) {
         ModelMapper mp = new ModelMapper();
-    	Siniestro siniestro = mp.map(newSiniestro, Siniestro.class);
-        return siniestro;
+        return mp.map(newSiniestro, Siniestro.class);
     }
     
 

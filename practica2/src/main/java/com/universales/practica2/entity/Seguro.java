@@ -2,7 +2,6 @@ package com.universales.practica2.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -50,7 +49,7 @@ public class Seguro implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "companias_seguros", joinColumns = @JoinColumn(name = "NUMERO_POLIZA"), inverseJoinColumns = @JoinColumn(name = "NOMBRE_COMPANIA"))
     @JsonIgnore
-    private List<Compania> companias = new LinkedList<Compania>();
+    private List<Compania> companias;
 
     
 }

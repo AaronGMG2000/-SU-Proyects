@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dto.test.CompaniaDto;
+import com.universales.practica2.dto.CompaniaDto;
 import com.universales.practica2.entity.Compania;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.CompaniaRepository;
@@ -93,8 +93,7 @@ public class CompaniaService {
 
     public Compania nuevoCompania(CompaniaDto newCompania) {
     	ModelMapper mp = new ModelMapper();
-        Compania compania = mp.map(newCompania, Compania.class);
-        return compania;
+        return mp.map(newCompania, Compania.class);
     }
     
 

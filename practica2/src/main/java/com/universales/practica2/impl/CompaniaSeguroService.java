@@ -3,7 +3,7 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dto.test.CompaniaSeguroDto;
+import com.universales.practica2.dto.CompaniaSeguroDto;
 import com.universales.practica2.entity.CompaniaSeguro;
 import com.universales.practica2.repository.CompaniaSeguroRepository;
 
@@ -52,8 +52,7 @@ public class CompaniaSeguroService {
 
     public CompaniaSeguro nuevaCompaniaSeguro(CompaniaSeguroDto newCompaniaSeguroDto) {
     	ModelMapper mp = new ModelMapper();
-        CompaniaSeguro companiaSeguro = mp.map(newCompaniaSeguroDto, CompaniaSeguro.class);
-        return companiaSeguro;
+        return mp.map(newCompaniaSeguroDto, CompaniaSeguro.class);
     }
 
 }

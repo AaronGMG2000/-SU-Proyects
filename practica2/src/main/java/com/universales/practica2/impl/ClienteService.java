@@ -2,7 +2,7 @@ package com.universales.practica2.impl;
 
 import com.universales.practica2.repository.ClienteRepository;
 import com.universales.practica2.repository.SeguroRepository;
-import com.library.dto.test.ClienteDto;
+import com.universales.practica2.dto.ClienteDto;
 import com.universales.practica2.entity.Cliente;
 import com.universales.practica2.entity.Seguro;
 
@@ -90,8 +90,7 @@ public class ClienteService {
 
     public Cliente nuevoCliente(ClienteDto newCliente) {
     	ModelMapper mp = new ModelMapper();
-        Cliente cliente = mp.map(newCliente, Cliente.class);
-        return cliente;
+        return mp.map(newCliente, Cliente.class);
     }
     
 

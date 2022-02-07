@@ -3,7 +3,7 @@ package com.universales.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dto.test.PeritoDto;
+import com.universales.practica2.dto.PeritoDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.repository.PeritoRepository;
 
@@ -63,8 +63,7 @@ public class PeritoService {
 
     public Perito nuevoPerito(PeritoDto newPerito) {
         ModelMapper mp = new ModelMapper();
-    	Perito perito = mp.map(newPerito, Perito.class);
-        return perito;
+        return mp.map(newPerito, Perito.class);
     }
 
 }

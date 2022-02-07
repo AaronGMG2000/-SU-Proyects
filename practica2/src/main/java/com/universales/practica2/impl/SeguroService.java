@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import com.library.dto.test.SeguroDto;
+import com.universales.practica2.dto.SeguroDto;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.SeguroRepository;
 
@@ -90,8 +90,7 @@ public class SeguroService {
 
     public Seguro nuevoSeguro(SeguroDto newSeguro) {
     	ModelMapper mp = new ModelMapper();
-        Seguro seguro = mp.map(newSeguro, Seguro.class);
-        return seguro;
+        return mp.map(newSeguro, Seguro.class);
     }
     
 
