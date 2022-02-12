@@ -51,12 +51,12 @@ class SiniestroServiceTests {
 			
 			newSeguro.setCompanias(new ArrayList<CompaniaDto>());
 			newSeguro.setCondicionesParticulares("ninguna");
-			newSeguro.setDniCl(51);
+			newSeguro.setDniCl(1);
 			Date fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022");
 			newSeguro.setFechaInicio(fechaInicio);
 			Date fechaVencimiento = new SimpleDateFormat("dd/MM/yyyy").parse("30/01/2022");
 			newSeguro.setFechaVencimiento(fechaVencimiento);
-			newSeguro.setNumeroPoliza(3);
+			newSeguro.setNumeroPoliza(35);
 			newSeguro.setObservaciones("ninguna");
 			newSeguro.setRamo("ramo 1");
 			
@@ -65,7 +65,7 @@ class SiniestroServiceTests {
 			newPerito.setCiudad("Guatemala");
 			newPerito.setClaseVia("Clase 1");
 			newPerito.setCodPostal("4003");
-			newPerito.setDniPerito(2);
+			newPerito.setDniPerito(12);
 			newPerito.setNombrePerito("Rudy");
 			newPerito.setNombreVia("via 1");
 			newPerito.setNumeroVia("numero 1");
@@ -99,12 +99,12 @@ class SiniestroServiceTests {
 			
 			newSeguro.setCompanias(new ArrayList<CompaniaDto>());
 			newSeguro.setCondicionesParticulares("ninguna");
-			newSeguro.setDniCl(51);
+			newSeguro.setDniCl(1);
 			Date fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022");
 			newSeguro.setFechaInicio(fechaInicio);
 			Date fechaVencimiento = new SimpleDateFormat("dd/MM/yyyy").parse("30/01/2022");
 			newSeguro.setFechaVencimiento(fechaVencimiento);
-			newSeguro.setNumeroPoliza(3);
+			newSeguro.setNumeroPoliza(35);
 			newSeguro.setObservaciones("ninguna");
 			newSeguro.setRamo("ramo 1");
 			
@@ -113,7 +113,7 @@ class SiniestroServiceTests {
 			newPerito.setCiudad("Guatemala");
 			newPerito.setClaseVia("Clase 1");
 			newPerito.setCodPostal("4003");
-			newPerito.setDniPerito(2);
+			newPerito.setDniPerito(12);
 			newPerito.setNombrePerito("Rudy");
 			newPerito.setNombreVia("via 1");
 			newPerito.setNumeroVia("numero 1");

@@ -30,8 +30,8 @@ class CompaniaSeguroServiceTests {
 	@Test
 	void guardar() {
 		CompaniaSeguroDto newCompaniaSeguro = new CompaniaSeguroDto();
-		newCompaniaSeguro.setNombreCompania("COMPANIA1");
-		newCompaniaSeguro.setNumeroPoliza(3);
+		newCompaniaSeguro.setNombreCompania("COMPANIA2");
+		newCompaniaSeguro.setNumeroPoliza(35);
 		companiaSeguroService.guardar(newCompaniaSeguro);
 		assertTrue(true, "Validado guardar CompaniaSeguro");
 	}
@@ -40,8 +40,8 @@ class CompaniaSeguroServiceTests {
 	void eliminar() {
 		try {
 			CompaniaSeguroDto newCompaniaSeguro = new CompaniaSeguroDto();
-			newCompaniaSeguro.setNombreCompania("COMPANIA1");
-			newCompaniaSeguro.setNumeroPoliza(3);
+			newCompaniaSeguro.setNombreCompania("COMPANIA2");
+			newCompaniaSeguro.setNumeroPoliza(35);
 			CompaniaSeguro  companiaSeguro= companiaSeguroService.guardar(newCompaniaSeguro);
 			List<CompaniaSeguro> companiaSeguros = companiaSeguroService.buscar();
 			companiaSeguroService.eliminar(companiaSeguro.getId());

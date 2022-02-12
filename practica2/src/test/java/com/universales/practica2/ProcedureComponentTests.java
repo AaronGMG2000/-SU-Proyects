@@ -38,7 +38,7 @@ class ProcedureComponentTests {
 			SeguroDto newSeguro = new SeguroDto();
 			newSeguro.setCompanias(new ArrayList<CompaniaDto>());
 			newSeguro.setCondicionesParticulares("ninguna");
-			newSeguro.setDniCl(51);
+			newSeguro.setDniCl(1);
 			
 			Date fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022");
 			newSeguro.setFechaInicio(fechaInicio);
@@ -61,7 +61,7 @@ class ProcedureComponentTests {
 			SeguroDto newSeguro = new SeguroDto();
 			newSeguro.setCompanias(new ArrayList<CompaniaDto>());
 			newSeguro.setCondicionesParticulares("ninguna");
-			newSeguro.setDniCl(51);
+			newSeguro.setDniCl(1);
 			
 			Date fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022");
 			newSeguro.setFechaInicio(fechaInicio);

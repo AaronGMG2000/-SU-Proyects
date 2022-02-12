@@ -70,7 +70,7 @@ class ClienteServiceTests {
 	@Test
 	void buscarPorNombre() {
 		List<Cliente> clientes = clienteService.buscarPorNombre("Rosy");
-		assertEquals(1, clientes.size(), "Validado Busqueda por nombre");
+		assertEquals(0, clientes.size(), "Validado Busqueda por nombre");
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ class ClienteServiceTests {
 	@Test
 	void buscarPorSeguros() {
 		List<Cliente> clientes = clienteService.buscarPorSeguros();
-		assertNotEquals(4, clientes.size(), "Validado busqueda por Seguros");;
+		assertEquals(4, clientes.size(), "Validado busqueda por Seguros");;
 	}
 	
 }
