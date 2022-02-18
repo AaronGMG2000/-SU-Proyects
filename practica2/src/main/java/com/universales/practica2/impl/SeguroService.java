@@ -93,5 +93,10 @@ public class SeguroService {
         return mp.map(newSeguro, Seguro.class);
     }
     
+    @GetMapping("buscar/vencimiento/antes")
+    public List<Seguro> buscarVencimineotAntes(@RequestParam Date fechaVencimiento){
+    	return seguroRepository.findByFechaVencimientoBefore(fechaVencimiento);
+    }
+    
 
 }

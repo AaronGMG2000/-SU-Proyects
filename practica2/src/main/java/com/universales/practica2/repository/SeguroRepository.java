@@ -21,5 +21,7 @@ public interface SeguroRepository extends JpaRepository<Seguro, Serializable> {
     public List<Seguro> findByFechaInicioBetween(Date fechaInicio, Date fechaFin);
 
     public List<Seguro> findByFechaVencimientoBetween(Date fechaInicio, Date fechaFin);
+    
+    public List<Seguro> findByFechaVencimientoBefore(Date fechaVencimiento);
 
 }
