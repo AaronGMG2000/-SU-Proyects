@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.universales.practica2.entity.Cliente;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +20,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Serializable> 
             String apellido1);
 
     public List<Cliente> findByCiudadOrCiudad(String ciudad1, String ciudad2);
+    
+    
+    public Page<Cliente> findByApellido1(Pageable page, String apellido1);
 }
