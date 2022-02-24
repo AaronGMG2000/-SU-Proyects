@@ -7,8 +7,11 @@ import com.universales.practica2.dto.CompaniaSeguroDto;
 import com.universales.practica2.entity.CompaniaSeguro;
 import com.universales.practica2.repository.CompaniaSeguroRepository;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,19 +29,26 @@ public class CompaniaSeguroService {
     @Autowired
     private CompaniaSeguroRepository companiaSeguroRepository;
 
+    private static final Log LOG = LogFactory.getLog(CompaniaSeguroService.class);
+    
     @GetMapping("/buscar")
     public List<CompaniaSeguro> buscar() {
         return companiaSeguroRepository.findAll();
     }
 
     @PostMapping("/guardar")
-    public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto newCompaniaSeguro) {
+    public ResponseEntity<CompaniaSeguro> guardar(@RequestBody CompaniaSeguroDto newCompaniaSeguro) {
         CompaniaSeguro companiaSeguro = this.nuevaCompaniaSeguro(newCompaniaSeguro);
-        return companiaSeguroRepository.save(companiaSeguro);
+        try {
+            return ResponseEntity.ok().body(companiaSeguroRepository.save(companiaSeguro));
+    	}catch (Exception e) {
+    		LOG.error("ERROR EN LA PERSISTENCIA DE DATOS" + e);
+    		return ResponseEntity.internalServerError().body(null);
+		}
     }
 
     @PutMapping("/actualizar")
-    public CompaniaSeguro actualizar(@RequestBody CompaniaSeguroDto newCompaniaSeguro) {
+    public ResponseEntity<CompaniaSeguro> actualizar(@RequestBody CompaniaSeguroDto newCompaniaSeguro) {
         return this.guardar(newCompaniaSeguro);
     }
 

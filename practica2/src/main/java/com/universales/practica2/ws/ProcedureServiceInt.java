@@ -1,5 +1,6 @@
 package com.universales.practica2.ws;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface ProcedureServiceInt {
 
     @PostMapping(value = "guardar/seguro")
-    public ProcedimientoDto guardarSeguro(@RequestBody SeguroDto newSeguro);
+    public ResponseEntity<ProcedimientoDto> guardarSeguro(@RequestBody SeguroDto newSeguro);
 
     @GetMapping(value = "eliminar/seguro/{id}")
     public void eliminarSeguro(@PathVariable int id);
 
     @PostMapping(value = "guardar/seguro/package")
-    public int guardarSeguroPackage(@RequestBody SeguroDto newSeguro);
+    public ResponseEntity<Integer> guardarSeguroPackage(@RequestBody SeguroDto newSeguro);
 }

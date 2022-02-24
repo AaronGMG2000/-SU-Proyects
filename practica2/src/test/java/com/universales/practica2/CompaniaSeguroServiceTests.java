@@ -42,7 +42,7 @@ class CompaniaSeguroServiceTests {
 			CompaniaSeguroDto newCompaniaSeguro = new CompaniaSeguroDto();
 			newCompaniaSeguro.setNombreCompania("COMPANIA2");
 			newCompaniaSeguro.setNumeroPoliza(35);
-			CompaniaSeguro  companiaSeguro= companiaSeguroService.guardar(newCompaniaSeguro);
+			CompaniaSeguro  companiaSeguro= companiaSeguroService.guardar(newCompaniaSeguro).getBody();
 			List<CompaniaSeguro> companiaSeguros = companiaSeguroService.buscar();
 			companiaSeguroService.eliminar(companiaSeguro.getId());
 			List<CompaniaSeguro> companiaSegurosE = companiaSeguroService.buscar();

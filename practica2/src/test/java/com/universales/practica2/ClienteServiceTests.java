@@ -59,7 +59,7 @@ class ClienteServiceTests {
 		newCliente.setObservaciones("ninguna");
 		newCliente.setTelefono("454545");
 		newCliente.setSegurosList(new ArrayList<>());
-		Cliente cliente = clienteService.guardar(newCliente);
+		Cliente cliente = clienteService.guardar(newCliente).getBody();
 		List<Cliente> clientes = clienteService.buscar();
 		clienteService.eliminar(cliente.getDniCl());	
 		List<Cliente> clientesE = clienteService.buscar();

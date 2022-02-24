@@ -8,8 +8,11 @@ import com.universales.practica2.dto.SeguroDto;
 import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.SeguroRepository;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SeguroService {
     @Autowired
     SeguroRepository seguroRepository;
+    
+    private static final Log LOG = LogFactory.getLog(SeguroService.class);
 
     @GetMapping("/buscar")
     public List<Seguro> buscar() {
@@ -43,13 +48,18 @@ public class SeguroService {
     }
 
     @PostMapping("/guardar")
-    public Seguro guardar(@RequestBody SeguroDto newSeguro) {
+    public ResponseEntity<Seguro> guardar(@RequestBody SeguroDto newSeguro) {
         Seguro seguro = this.nuevoSeguro(newSeguro);
-        return seguroRepository.save(seguro);
+        try {
+            return ResponseEntity.ok().body(seguroRepository.save(seguro));
+    	}catch (Exception e) {
+    		LOG.error("ERROR EN LA PERSISTENCIA DE DATOS" + e);
+    		return ResponseEntity.internalServerError().body(null);
+		}
     }
 
     @PutMapping("/actualizar")
-    public Seguro actualizar(@RequestBody SeguroDto seguro) {
+    public ResponseEntity<Seguro> actualizar(@RequestBody SeguroDto seguro) {
         return this.guardar(seguro);
     }
 

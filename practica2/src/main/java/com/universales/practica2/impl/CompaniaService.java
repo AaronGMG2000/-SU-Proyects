@@ -10,8 +10,11 @@ import com.universales.practica2.entity.Seguro;
 import com.universales.practica2.repository.CompaniaRepository;
 import com.universales.practica2.repository.SeguroRepository;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,33 +36,41 @@ public class CompaniaService {
     @Autowired
     SeguroRepository seguroRepository;
     
+    private static final Log LOG = LogFactory.getLog(CompaniaService.class);
+    
     @GetMapping("/buscar")
     public List<Compania> buscar() {
         return companiaRepository.findAll();
     }
 
     @PostMapping("/guardar")
-    public Compania guardar(@RequestBody CompaniaDto newCompania) {
+    public ResponseEntity<Compania> guardar(@RequestBody CompaniaDto newCompania) {
         Compania compania = this.nuevoCompania(newCompania);
-        List<Seguro> seguros = compania.getSeguros();
-        compania.setSeguros(null);
-        if(seguros != null) {
-	        companiaRepository.save(compania);
-	        for (Seguro seguro : seguros) {
-	        	if (seguro.getCompanias() == null) {
-	        		seguro.setCompanias(new LinkedList<>());
-	        	}
-	        	seguro.getCompanias().add(compania);   
-	        }
-	        
-            seguroRepository.saveAll(seguros);
-            compania.setSeguros(seguros);
-        }
-        return compania;
+        
+        try {
+        	List<Seguro> seguros = compania.getSeguros();
+            compania.setSeguros(null);
+            if(seguros != null) {
+    	        companiaRepository.save(compania);
+    	        for (Seguro seguro : seguros) {
+    	        	if (seguro.getCompanias() == null) {
+    	        		seguro.setCompanias(new LinkedList<>());
+    	        	}
+    	        	seguro.getCompanias().add(compania);   
+    	        }
+    	        
+                seguroRepository.saveAll(seguros);
+                compania.setSeguros(seguros);
+            }
+            return ResponseEntity.ok().body(compania);
+    	}catch (Exception e) {
+    		LOG.error("ERROR EN LA PERSISTENCIA DE DATOS" + e);
+    		return ResponseEntity.internalServerError().body(null);
+		}
     }
 
     @PutMapping("/actualizar")
-    public Compania actualizar(@RequestBody CompaniaDto newCompania) {
+    public ResponseEntity<Compania> actualizar(@RequestBody CompaniaDto newCompania) {
         return this.guardar(newCompania);
     }
 

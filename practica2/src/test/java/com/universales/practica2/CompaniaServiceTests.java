@@ -59,7 +59,7 @@ class CompaniaServiceTests {
 		newCompania.setSeguros(new ArrayList<SeguroDto>());
 		newCompania.setTelefonoContratacion("45454545");
 		newCompania.setTelefonoSiniestros("50505050");
-		Compania compania = companiaService.guardar(newCompania);
+		Compania compania = companiaService.guardar(newCompania).getBody();
 		List<Compania> companias = companiaService.buscar();
 		companiaService.eliminar(compania.getNombreCompania());
 		List<Compania> companiasG = companiaService.buscar();

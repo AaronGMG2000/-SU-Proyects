@@ -7,8 +7,11 @@ import com.universales.practica2.dto.PeritoDto;
 import com.universales.practica2.entity.Perito;
 import com.universales.practica2.repository.PeritoRepository;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ public class PeritoService {
     @Autowired
     PeritoRepository peritoRepository;
     
+    private static final Log LOG = LogFactory.getLog(PeritoService.class);
 
     @GetMapping(value = "/buscar")
     public List<Perito> buscar() {
@@ -33,13 +37,18 @@ public class PeritoService {
     }
 
     @PostMapping(value = "/guardar")
-    public Perito guardar(@RequestBody PeritoDto newPerito) {
+    public ResponseEntity<Perito> guardar(@RequestBody PeritoDto newPerito) {
         Perito perito = this.nuevoPerito(newPerito);
-        return peritoRepository.save(perito);
+        try {
+            return ResponseEntity.ok().body(peritoRepository.save(perito));
+    	}catch (Exception e) {
+    		LOG.error("ERROR EN LA PERSISTENCIA DE DATOS" + e);
+    		return ResponseEntity.internalServerError().body(null);
+		}
     }
 
     @PutMapping(value = "/actualizar")
-    public Perito actualizar(@RequestBody PeritoDto newPerito) {
+    public ResponseEntity<Perito> actualizar(@RequestBody PeritoDto newPerito) {
         return this.guardar(newPerito);
     }
 

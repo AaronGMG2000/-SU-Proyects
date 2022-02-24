@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.repository.SiniestroRepository;
@@ -13,6 +15,7 @@ import com.universales.practica2.ws.SiniestroServiceInt;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,15 +30,22 @@ public class SiniestroService implements SiniestroServiceInt {
     public List<Siniestro> buscar() {
         return siniestroRepository.findAll();
     }
+    
+    private static final Log LOG = LogFactory.getLog(SiniestroService.class);
 
     @Override
-    public Siniestro guardar(SiniestroDto newSiniestro) {
-        Siniestro siniestro = this.nuevoSiniestro(newSiniestro);
-        return siniestroRepository.save(siniestro);
+    public ResponseEntity<Siniestro> guardar(SiniestroDto newSiniestro) {
+    	Siniestro siniestro = this.nuevoSiniestro(newSiniestro);
+        try {
+        	return ResponseEntity.ok().body(siniestroRepository.save(siniestro));
+        }catch (Exception e) {
+        	LOG.error("HUBO UN ERROR EN PERSISTENCIA DE DATOS: "+ e);
+        	return ResponseEntity.internalServerError().body(null);
+        }
     }
 
     @Override
-    public Siniestro actualizar(SiniestroDto newSiniestro) {
+    public ResponseEntity<Siniestro> actualizar(SiniestroDto newSiniestro) {
         return this.guardar(newSiniestro);
     }
 
@@ -84,11 +94,18 @@ public class SiniestroService implements SiniestroServiceInt {
     }
 
     @Override
-    public int postMethodName(SiniestroDto newSiniestro) {
-        return catalogosService.insertarSiniestroinsertarSiniestro(newSiniestro.getIdSiniestro(),
-                newSiniestro.getFechaSiniestro(), newSiniestro.getCausas(), newSiniestro.getAceptado(),
-                newSiniestro.getIndermizacion(), newSiniestro.getPerito().getDniPerito(),
-                newSiniestro.getSeguro().getNumeroPoliza());
+    public ResponseEntity<Integer> postMethodName(SiniestroDto newSiniestro) {
+    	try {
+        	return ResponseEntity.ok().body(
+        			catalogosService.insertarSiniestroinsertarSiniestro(newSiniestro.getIdSiniestro(),
+        	                newSiniestro.getFechaSiniestro(), newSiniestro.getCausas(), newSiniestro.getAceptado(),
+        	                newSiniestro.getIndermizacion(), newSiniestro.getPerito().getDniPerito(),
+        	                newSiniestro.getSeguro().getNumeroPoliza())
+        			);
+        }catch (Exception e) {
+        	LOG.error("HUBO UN ERROR EN PERSISTENCIA DE DATOS: "+ e);
+        	return ResponseEntity.internalServerError().body(null);
+        }
     }
 
     @Override

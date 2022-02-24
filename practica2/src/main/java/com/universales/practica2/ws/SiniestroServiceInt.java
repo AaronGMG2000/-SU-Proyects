@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,10 @@ public interface SiniestroServiceInt {
     public List<Siniestro> buscar();
 
     @PostMapping(path = "/guardar")
-    public Siniestro guardar(@RequestBody SiniestroDto newSiniestro);
+    public ResponseEntity<Siniestro> guardar(@RequestBody SiniestroDto newSiniestro);
 
     @PutMapping(path = "/actualizar")
-    public Siniestro actualizar(@RequestBody SiniestroDto newSiniestro);
+    public ResponseEntity<Siniestro> actualizar(@RequestBody SiniestroDto newSiniestro);
 
     @DeleteMapping(path = "/eliminar/{id}")
     public void eliminar(@PathVariable("id") int id);
@@ -53,7 +55,7 @@ public interface SiniestroServiceInt {
     public List<Map<String, Object>> buscarPorQuery();
 
     @PostMapping(path = "query/guardar")
-    public int postMethodName(SiniestroDto newSiniestro);
+    public ResponseEntity<Integer> postMethodName(SiniestroDto newSiniestro);
 
     @PutMapping(value = "query/actualizar")
     public void putMethodName(SiniestroDto newSiniestro);

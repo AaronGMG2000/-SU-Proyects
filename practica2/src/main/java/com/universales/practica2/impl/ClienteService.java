@@ -6,9 +6,12 @@ import com.universales.practica2.dto.ClienteDto;
 import com.universales.practica2.entity.Cliente;
 import com.universales.practica2.entity.Seguro;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +37,9 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     @Autowired
-    SeguroRepository seguroRepository;
+    SeguroRepository seguroRepository;	
+    
+    private static final Log LOG = LogFactory.getLog(ClienteService.class);
 
     @GetMapping(path = "/buscar")
     public List<Cliente> buscar() {
@@ -42,21 +47,28 @@ public class ClienteService {
     }
 
     @PostMapping(path = "/guardar")
-    public Cliente guardar(@RequestBody ClienteDto newCliente) {
-        Cliente cliente = this.nuevoCliente(newCliente);
-        List<Seguro> seguros = cliente.getSegurosList();
-        cliente.setSegurosList(null);
-        cliente = clienteRepository.save(cliente);
-        for (Seguro seguro : seguros) {
-            seguro.setDniCl(cliente.getDniCl());
-        }
-        seguroRepository.saveAll(seguros);
-        cliente.setSegurosList(seguros);
-        return cliente;
+    public ResponseEntity<Cliente> guardar(@RequestBody ClienteDto newCliente) {
+    	
+    	try {
+    		Cliente cliente = this.nuevoCliente(newCliente);
+            List<Seguro> seguros = cliente.getSegurosList();
+            cliente.setSegurosList(null);
+            cliente = clienteRepository.save(cliente);
+            for (Seguro seguro : seguros) {
+                seguro.setDniCl(cliente.getDniCl());
+            }
+            seguroRepository.saveAll(seguros);
+            cliente.setSegurosList(seguros);
+            return ResponseEntity.ok().body(cliente);
+    	}catch (Exception e) {
+    		LOG.error("ERROR EN LA PERSISTENCIA DE DATOS" + e);
+    		return ResponseEntity.internalServerError().body(null);
+		}
+    	
     }
 
     @PutMapping(path = "/actualizar")
-    public Cliente actualizar(@RequestBody ClienteDto cliente) {
+    public ResponseEntity<Cliente> actualizar(@RequestBody ClienteDto cliente) {
         return this.guardar(cliente);
     }
 
