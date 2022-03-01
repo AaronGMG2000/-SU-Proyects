@@ -14,4 +14,5 @@ public interface PeritoRepository extends JpaRepository<Perito, Serializable> {
     public List<Perito> findByNombrePeritoStartingWith(String nombrePerito);
 
     public List<Perito> findByApellidoPerito1NotContaining(String apellidoPerito);
+    
 }

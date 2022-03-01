@@ -8,6 +8,7 @@ import com.universales.practica2.entity.Cliente;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository("clienteRepository")
@@ -23,4 +24,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Serializable> 
     
     
     public Page<Cliente> findByApellido1(Pageable page, String apellido1);
+    
+    @Query(value = "SELECT * FROM CLIENTES WHERE ciudad LIKE %:ciudad% ORDER BY apellido_1 ASC", 
+    		countQuery = "SELECT * FROM CLIENTES WHERE ciudad LIKE %:ciudad%", 
+    		nativeQuery = true)
+    public Page<Cliente> findByCiudad(Pageable paginacion ,String ciudad);
 }

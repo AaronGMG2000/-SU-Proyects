@@ -31,7 +31,7 @@ public class CompaniaDto implements Serializable {
 
     private String notas;
 
-    private List<SeguroDto> seguros = new LinkedList<SeguroDto>();
+    private List<SeguroDto> seguros = new LinkedList<>();
 
  
 

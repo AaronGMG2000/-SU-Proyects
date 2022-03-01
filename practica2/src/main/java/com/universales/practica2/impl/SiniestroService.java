@@ -7,6 +7,9 @@ import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.universales.practica2.dto.SiniestroCantidadCiudadDto;
+import com.universales.practica2.dto.SiniestroCantidadDto;
 import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
 import com.universales.practica2.repository.SiniestroRepository;
@@ -15,6 +18,7 @@ import com.universales.practica2.ws.SiniestroServiceInt;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -117,4 +121,14 @@ public class SiniestroService implements SiniestroServiceInt {
     public int deleteMethodName(int idSiniestro) {
         return catalogosService.eliminarSiniestro(idSiniestro);
     }
+
+	@Override
+	public List<SiniestroCantidadDto> findSiniestroCantidad() {
+		return siniestroRepository.findCountSiniestro();
+	}
+
+	@Override
+	public List<SiniestroCantidadCiudadDto> findSiniestroCantidad(String ciudad) {
+		return siniestroRepository.findCountSiniestroCiudad(ciudad);
+	}
 }

@@ -29,7 +29,7 @@ public class SeguroDto implements Serializable {
 
     private Integer dniCl;
 
-    private List<CompaniaDto> companias = new LinkedList<CompaniaDto>();
+    private List<CompaniaDto> companias = new LinkedList<>();
 
     
 }

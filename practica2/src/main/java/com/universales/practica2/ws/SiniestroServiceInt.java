@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.universales.practica2.dto.SiniestroCantidadCiudadDto;
+import com.universales.practica2.dto.SiniestroCantidadDto;
 import com.universales.practica2.dto.SiniestroDto;
 import com.universales.practica2.entity.Siniestro;
+
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,5 +65,11 @@ public interface SiniestroServiceInt {
 
     @DeleteMapping(value = "query/eliminar/{idSiniestro}")
     public int deleteMethodName(@PathVariable("idSiniestro") int idSiniestro);
+    
+    @GetMapping(value = "buscar/jpql/cantidad")
+    public List<SiniestroCantidadDto> findSiniestroCantidad();
+    
+    @GetMapping(value = "buscar/jpql/cantidad/ciudad/{ciudad}")
+    public List<SiniestroCantidadCiudadDto> findSiniestroCantidad(@PathVariable("ciudad") String ciudad);
 
 }

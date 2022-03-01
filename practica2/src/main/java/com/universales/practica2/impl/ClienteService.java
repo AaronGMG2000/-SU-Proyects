@@ -113,5 +113,11 @@ public class ClienteService {
     	Pageable paginador = PageRequest.of(pagina, cantidad);
     	return clienteRepository.findByApellido1(paginador, apellido1);
     }
+    
+    @GetMapping(value = "buscar/jpql/ciudad/{ciudad}/{pagina}/{cantidad}")
+    public Page<Cliente> buscarPorCiudadJpql(@PathVariable("ciudad") String ciudad, @PathVariable("pagina") int pagina, @PathVariable("cantidad") int cantidad){
+    	Pageable paginacion = PageRequest.of(pagina, cantidad);
+    	return clienteRepository.findByCiudad(paginacion, ciudad);
+    }
 
 }
